@@ -83,4 +83,20 @@ public class DiscountService {
                 .collect(Collectors.toList());
     }
 
+    public List<Discount> getDiscountsAbove(double minDiscount) {
+        List<Discount> all = new ArrayList<>();
+        for (Store store : Store.values()) {
+            String filename = "data/" + store.name().toLowerCase() + "_discounts_2025-05-08.csv";
+            try {
+                all.addAll(csvLoader.loadDiscounts(filename, store));
+            } catch (Exception e) {
+                System.err.println("Failed to load: " + filename);
+            }
+        }
+
+        return all.stream()
+                .filter(d -> d.getDiscountPercent() >= minDiscount)
+                .collect(Collectors.toList());
+    }
+
 }

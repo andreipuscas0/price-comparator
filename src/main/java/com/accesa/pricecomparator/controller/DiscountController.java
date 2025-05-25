@@ -40,6 +40,11 @@ public class DiscountController {
         return discountService.getDiscountsByDateRange(from, to);
     }
 
+    @GetMapping("/min/{percentage}")
+    public List<Discount> getDiscountsAbove(@PathVariable double percentage) {
+        return discountService.getDiscountsAbove(percentage);
+    }
+
 }
 
 
