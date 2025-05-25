@@ -1,0 +1,4 @@
+Product id,Product name,Brand,Quantity,Unit,Category,From date,To date,Discount percent
+1,Milk,Milbona,1,l,Groceries,2025-05-20,2025-05-25,25
+2,Cheese,Pilos,0.3,kg,Dairy,2025-05-22,2025-05-26,40
+3,Bread,Chef Select,500,g,Bakery,2025-05-21,2025-05-23,15
