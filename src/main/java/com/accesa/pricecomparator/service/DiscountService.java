@@ -99,4 +99,35 @@ public class DiscountService {
                 .collect(Collectors.toList());
     }
 
+    public List<Discount> getDiscountsByCategory(String category) {
+        List<Discount> all = new ArrayList<>();
+        for (Store store : Store.values()) {
+            String filename = "data/" + store.name().toLowerCase() + "_discounts_2025-05-08.csv";
+            try {
+                all.addAll(csvLoader.loadDiscounts(filename, store));
+            } catch (Exception e) {
+                System.err.println("File missing or invalid: " + filename);
+            }
+        }
+
+        return all.stream()
+                .filter(d -> d.getCategory().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
+    }
+
+    public List<Discount> getSortedDiscounts() {
+        List<Discount> all = new ArrayList<>();
+        for (Store store : Store.values()) {
+            String filename = "data/" + store.name().toLowerCase() + "_discounts_2025-05-08.csv";
+            try {
+                all.addAll(csvLoader.loadDiscounts(filename, store));
+            } catch (Exception e) {
+                System.err.println("Failed to load: " + filename);
+            }
+        }
+        return all.stream()
+                .sorted(Comparator.comparingDouble(Discount::getDiscountPercent).reversed())
+                .collect(Collectors.toList());
+    }
+
 }

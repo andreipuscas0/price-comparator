@@ -41,8 +41,18 @@ public class DiscountController {
     }
 
     @GetMapping("/min/{percentage}")
-    public List<Discount> getDiscountsAbove(@PathVariable double percentage) {
+    public List<Discount> getDiscountsAbove(@PathVariable("percentage") double percentage) {
         return discountService.getDiscountsAbove(percentage);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Discount> getDiscountsByCategory(@PathVariable("category") String category) {
+        return discountService.getDiscountsByCategory(category);
+    }
+
+    @GetMapping("/sorted")
+    public List<Discount> getSortedDiscounts() {
+        return discountService.getSortedDiscounts();
     }
 
 }
