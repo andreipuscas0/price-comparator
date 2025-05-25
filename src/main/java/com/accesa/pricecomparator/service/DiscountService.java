@@ -66,4 +66,21 @@ public class DiscountService {
             return new ArrayList<>();
         }
     }
+
+    public List<Discount> getDiscountsByDateRange(LocalDate from, LocalDate to) {
+        List<Discount> allDiscounts = new ArrayList<>();
+        for (Store store : Store.values()) {
+            String filename = "data/" + store.name().toLowerCase() + "_discounts_2025-05-08.csv"; // sau altă logică
+            try {
+                allDiscounts.addAll(csvLoader.loadDiscounts(filename, store));
+            } catch (Exception e) {
+                System.err.println("Error loading file: " + filename);
+            }
+        }
+
+        return allDiscounts.stream()
+                .filter(d -> !(d.getToDate().isBefore(from) || d.getFromDate().isAfter(to)))
+                .collect(Collectors.toList());
+    }
+
 }
